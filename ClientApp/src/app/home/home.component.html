@@ -1,0 +1,112 @@
+<div class="row">
+  <div class="col-sm-3 card">
+    <div class="card-header" style="padding-bottom: 0">
+      <div class="row" style="text-align: center">
+        <div class="col-md-2">
+          <i (click)="showDeleteButton = !showDeleteButton" class="material-icons deleteIcon">delete</i>
+        </div>
+        <div class="col-md-8">
+          <h5 class="card-title">Phone Book</h5>
+        </div>
+        <div class="col-md-2">
+          <i (click)="showModal(addModal)" class="material-icons addIcon">add_circle_outline</i>
+        </div>
+      </div>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item searchInputHeader">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="material-icons searchIcon">search</i></span>
+          </div>
+          <input [ngModel]="searchInput" (input)="searchInput = $event.target.value" type="text"
+                 class="form-control searchInput" placeholder="Username"
+                 aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+      </li>
+      <!--todo filter search char by char-->
+      <li *ngFor="let Person of Persons | LastNameSearch: 'lastName': searchInput | paginate: { itemsPerPage: 10, currentPage: p }"
+          class="list-group-item" style="padding-right: 0">
+        <div class="row">
+          <div class="col-10">
+            <h5>{{Person.firstName}} {{Person.lastName}}</h5>
+            {{Person.telephoneNumber}}
+          </div>
+          <div class="col-2 itembutton">
+            <button (click)="showModal(deleteModal, Person)" *ngIf="showDeleteButton"
+                    class="btn btn-danger float-right">
+              <i class="material-icons deleteIcon">clear</i></button>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div class="card-footer">
+      <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<ng-template #deleteModal let-c="close('Close click')">
+  <div class="modal-header">
+    <h4 class="modal-title">Delete contact</h4>
+    <button (click)="c" type="button" class="close" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure want to delete <b>{{person.firstName}} {{person.lastName}}?</b></p>
+  </div>
+  <div class="modal-footer">
+    <button (click)="deletePerson(person.id); c" type="button" class="btn btn-danger">Delete</button>
+    <button (click)="c" type="button" class="btn btn-light">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #addModal let-c="close('Close click')">
+  <div class="modal-header">
+    <h4 class="modal-title">Add new contact</h4>
+    <button (click)="c" type="button" class="close" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="material-icons">person</i></span>
+          </div>
+          <input ngModel name="firstName" type="text" class="form-control" placeholder="First name">
+          <input ngModel name="lastName" type="text" class="form-control" placeholder="Last name">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="material-icons">phone</i></span>
+          </div>
+          <input ngModel name="telephoneNumber" type="text" class="form-control" placeholder="Phone number">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button (click)="addPerson(f.value); c" type="button" class="btn btn-success">Add</button>
+    <button (click)="c" type="button" class="btn btn-light">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #messageModal let-c="close('Close click')">
+  <div class="modal-header">
+    <h4 class="modal-title">{{MessageModalTitle}}</h4>
+    <button (click)="c" type="button" class="close" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{MessageModalBody}}</p>
+  </div>
+  <div class="modal-footer">
+    <button (click)="c" type="button" class="btn btn-light">Close</button>
+  </div>
+</ng-template>

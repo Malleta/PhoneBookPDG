@@ -1,0 +1,52 @@
+.card{
+  margin: 2rem;
+  padding: 0;
+}
+
+.searchInputHeader{
+  padding: 0;
+}
+
+.searchInput{
+  height: 3.3rem;
+  border: none;
+  font-size: 22px;
+}
+.searchInput:focus{
+  box-shadow: 0 0 0 0.2rem rgba(0,0,0,0.15);
+}
+
+.searchInputHeader > .input-group{
+  margin-bottom: 0!important;
+}
+
+.searchInputHeader > .input-group .input-group-text{
+  background-color: transparent;
+  border: none;
+}
+
+.searchIcon{
+  color: rgba(0,0,0, .4);
+}
+
+.card-header i{
+  cursor: pointer;
+}
+
+.itembutton{
+  margin-top: -.75rem;
+  margin-bottom: -.75rem;
+}
+.itembutton button{
+  height: 100%;
+  border-radius: 0;
+  padding: 0.3rem;
+}
+
+.itembutton i {
+  font-size: 22px;
+}
+
+.my-pagination /deep/ .ngx-pagination {
+  padding: 0;
+}
