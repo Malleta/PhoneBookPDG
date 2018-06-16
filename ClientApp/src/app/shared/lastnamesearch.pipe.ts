@@ -10,6 +10,8 @@ export class LastnamesearchPipe implements PipeTransform {
     if (!value) {
       return items;
     }
-    return items.filter(it => it[field] == value);
+    return items.filter(it => {
+      return it[field].includes(value);
+    });
   }
 }

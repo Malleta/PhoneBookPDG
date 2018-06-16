@@ -24,7 +24,6 @@
                  aria-label="Username" aria-describedby="basic-addon1">
         </div>
       </li>
-      <!--todo filter search char by char-->
       <li *ngFor="let Person of Persons | LastNameSearch: 'lastName': searchInput | paginate: { itemsPerPage: 10, currentPage: p }"
           class="list-group-item" style="padding-right: 0">
         <div class="row">

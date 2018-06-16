@@ -10,7 +10,6 @@ namespace PhoneBookPDG.Controllers
     [ApiController]
     public class DataController : Controller
     {
-
         private readonly PhoneBookContext _PhoneBookContext;
 
         public DataController(PhoneBookContext PhoneBookContext)
