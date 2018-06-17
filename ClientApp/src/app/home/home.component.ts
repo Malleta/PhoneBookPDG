@@ -31,8 +31,8 @@ export class HomeComponent {
   }
 
   deletePerson(Id: number): void {
-    this.http.delete('/api/Delete/' + Id).subscribe(result => {
-      if (result === null) {
+    this.http.delete('/api/Delete/' + Id, {observe: 'response'}).subscribe(result => {
+      if (result.ok) {
         this.getAll();
         this.showMessageModal('Successfully deleted', 'Selected person is successfully deleted');
       }
@@ -40,8 +40,11 @@ export class HomeComponent {
   }
 
   addPerson(person: IPerson): void {
-    this.http.post('/api/NewPerson', person).subscribe(result => {
-      if (result === null) {
+    if (person == null) {
+      return null;
+    }
+    this.http.post('/api/NewPerson', person, {observe: 'response'}).subscribe((result) => {
+      if (result.ok) {
         this.getAll();
         this.showMessageModal('Successfully added', 'Person is successfully added');
       }

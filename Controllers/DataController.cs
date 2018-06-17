@@ -42,13 +42,13 @@ namespace PhoneBookPDG.Controllers
         {
             if(person == null)
             {
-                return StatusCode(404);
+                return NotFound();
             }
             
             _PhoneBookContext.Add(person);
             _PhoneBookContext.SaveChanges();
 
-            return StatusCode(200);
+            return Ok();
         }
     }
 }
